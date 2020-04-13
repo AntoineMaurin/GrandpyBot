@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="utf-8">
+    <title>GrandpyBot</title>
+  </head>
+
+  <header>
+    <div class="inner-header">
+      <h1>👴 🤖 Grandpy Bot 🤖 👴</h1>
+    </div>
+  </header>
+
+  <body>
+
+    <div class="text-zone">
+      <h2>Zone texte</h2>
+    </div>
+    <form id="user_text_form">
+      <p>
+        <label for="user_text"></label>
+        <input id="user_text" type="text" name="user_text" placeholder="Posez une question à GrandPy"></input>
+        <input id="submit_button" type="submit" value="Envoyer">
+      </p>
+    </form>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+  </body>
+
+  <footer>
+    <div class="inner-footer">
+      <p>Antoine Maurin</p>
+      <ul>
+        <li><a href="https://twitter.com/julesforrest">Twitter</a></li>
+        <li><a href="https://codepen.io/julesforrest">Codepen</a></li>
+        <li><a href="mailto:julesforrest@gmail.com">Email</a></li>
+        <li><a href="https://dribbble.com/julesforrest">Dribbble</a></li>
+        <li><a href="https://github.com/julesforrest">Github</a></li>
+      </ul>
+    </div>
+  </footer>
+</html>

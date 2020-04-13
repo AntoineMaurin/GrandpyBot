@@ -1,0 +1,88 @@
+/* Colors :
+
+Blue : #037F8C
+
+*/
+* {
+  margin: 0;
+}
+header {
+  background-color: lightgreen;
+  text-align: center;
+}
+.inner-header {
+  display: inline-block;
+  position: relative;
+  width: 400px;
+  margin: 4% 40% 4% auto;
+  background-color: inherit;
+}
+
+body {
+  text-align: center;
+}
+.text-zone {
+  display: inline-block;
+  min-height: 200px;
+  width: 50%;
+  border: solid 1px black;
+  margin: 15px auto 15px;
+}
+form {
+  margin: 15px;
+  padding-bottom: 35px;
+  text-align: center;
+}
+
+form #user_text {
+  display: inline-block;
+  border: 1px solid #333;
+  border-radius: 4px;
+  width: 40%;
+  padding: 12px 20px;
+}
+
+form #submit_button {
+  display: block;
+  margin: 15px auto 15px;
+  padding: 20px;
+  width: 150px;
+  background-color: #333;
+  color: white;
+  border-radius: 10px;
+}
+
+footer {
+  background-color: lightgreen;
+  text-align: center;
+  margin: 25px auto auto;
+  min-height: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.inner-footer {
+  display: inline-block;
+  position: relative;
+  background-color: inherit;
+  margin: 10px auto 25px;
+}
+.inner-footer ul {
+  display: inline-grid;
+  grid-gap: 24px;
+  margin-top: 15px;
+  font-family: Menlo, monospace;
+  list-style-type: None;
+}
+.inner-footer a {
+  color: black;
+  text-decoration: none;
+  box-shadow: inset 0 -1px 0 hsla(0, 0%, 10%);
+}
+
+@media (min-width: 500px) {
+  ul {
+    grid-auto-flow: column;
+  }
+}
