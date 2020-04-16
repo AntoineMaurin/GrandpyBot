@@ -10,13 +10,13 @@ load_dotenv()
 
 @app.route("/")
 def home():
-    SECRET_VAR = os.getenv("MAVARIABLE")
-    print('MAVARIABLE : ', SECRET_VAR)
     return render_template("index.html")
 
 @app.route("/ajax", methods=["POST"])
 def ajax():
+    SECRET_VAR = os.environ['MAVARIABLE']
     user_text = request.form["user_text"]
     response = utils.transform(user_text)
     print('response : ', response)
-    return jsonify(response)
+    print('MAVARIABLE : ', SECRET_VAR)
+    return jsonify(SECRET_VAR)
