@@ -1,23 +1,31 @@
 import requests
 import json
 
+from gmaps_request import GmapsRequest
+
 class GmapsInteraction:
 
-    def __init__(self):
-        self.url = "http://jsonplaceholder.typicode.com/todos"
+    def __init__(self, search):
+        self.search = search
+        self.url = str("http://jsonplaceholder.typicode.com/{}").format(self.search)
 
-    def request(self):
-
-        response = requests.get(self.url)
-        self.status_code = response.status_code
-
-        if response.ok:
-            return response
-        else:
-            return None
-
-    def get_json_response(self):
-        reponse = self.request()
+    def get_content(self):
+        response = GmapsRequest.request(self.url)
         json_response = json.loads(response.text)
 
-        return json_response
+        #creusons dans le dictionnaire
+        #Il me faudrait les coordonnées GPS et l'adresse
+        l = []
+        for i in range(15):
+            l.append(json_response[i]["title"])
+        #range les résultats
+
+        return l
+
+        # return json_response["id"]
+
+obj = GmapsInteraction('todos')
+
+response = obj.get_content()
+
+print(response)

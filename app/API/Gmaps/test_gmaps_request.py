@@ -3,38 +3,27 @@ from unittest.mock import Mock, patch
 
 import pytest, json
 
+from gmaps_request import GmapsRequest
+
 class TestGmapsRequest:
 
     URL = "http://jsonplaceholder.typicode.com/todos"
 
-    def test_request_status_code(self):
+    def test_url_attribute(self):
         response = GmapsRequest.request(self.URL)
-        assert response.status_code < 300
+        assert response.url == self.URL
 
+# à adapter à G-Maps
     @patch('gmaps_request.requests.get')
-    def test_request_bad_status_code(self, mock_get):
-        mock_get.return_value.status_code = 350
-        response = GmapsRequest.request(self.URL)
-        with pytest.raises(AssertionError):
-            assert response.status_code < 300
-
-    @patch('gmaps_request.requests.get')
-    def test_request_is_ok(self, mock_get):
-        mock_get.return_value.ok = True
-        response = GmapsRequest.request(self.URL)
-        assert response.ok is True
-
-    @patch('gmaps_request.requests.get')
-    def test_request_is_not_ok(self, mock_get):
-        mock_get.return_value.ok = False
-        response = GmapsRequest.request(self.URL)
-        assert response.ok is False
-
-    @patch('gmaps_request.requests.get')
-    def test_request_is_ok(self, mock_get):
+    def test_get_content(self, mock_get):
         infos = [{
-
-        }]
+            "userId": 1,
+            "id": 1,
+            "title": "Do laudry",
+            "completed": 'false'
+            }]
         mock_get.return_value.json.return_value = infos
+
         response = GmapsRequest.request(self.URL)
+
         assert response.json() == infos

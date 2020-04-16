@@ -8,6 +8,11 @@ class TestWikimediaRequest:
     URL = "https://fr.wikipedia.org/w/api.php?action=query&format=json&"
     "prop=extracts&titles=Cité%20Paradis&redirects=1&exsentences=4"
 
+    def test_url_attribute(self):
+        response = WikimediaRequest.request(self.URL)
+        assert response.url == self.URL
+
+#################### A revoir ?
     def test_request_status_code(self):
         response = WikimediaRequest.request(self.URL)
         assert response.status_code < 300
@@ -30,6 +35,8 @@ class TestWikimediaRequest:
         mock_get.return_value.ok = False
         response = WikimediaRequest.request(self.URL)
         assert response.ok is False
+
+########################################################
 
     @patch('wikimedia_request.requests.get')
     def test_request_returns_json(self, mock_get):
