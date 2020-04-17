@@ -1,12 +1,12 @@
-from dotenv import load_dotenv
-import os
-
 from flask import render_template, jsonify, request
+
+from app.API.Gmaps.gmaps_interaction import GmapsInteraction
+from app.API.Gmaps.address_parsing import AddressParsing
+
+from app.API.Wikimedia.wikimedia_interaction import WikimediaInteraction
 
 from . import app
 from . import utils
-
-load_dotenv()
 
 @app.route("/")
 def home():
@@ -14,9 +14,14 @@ def home():
 
 @app.route("/ajax", methods=["POST"])
 def ajax():
-    SECRET_VAR = os.environ['MAVARIABLE']
     user_text = request.form["user_text"]
-    response = utils.transform(user_text)
+    # Askin G-Maps API to get the place
+    gmap = GmapsInteraction(user_text)
+    response = gmap.get_content()
     print('response : ', response)
-    print('MAVARIABLE : ', SECRET_VAR)
-    return jsonify(SECRET_VAR)
+    # Parsing the address to ask Wikimedia about the place
+    wiki_search = AddressParsing.parse(response['address'])
+    # Wikimedia call
+    wiki_obj = WikimediaInteraction(wiki_search)
+    wiki_response = wiki_obj.get_content()
+    return jsonify(wiki_response)

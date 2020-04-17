@@ -1,7 +1,7 @@
 import json
 
-from wikimedia_request import WikimediaRequest
-from clean_data import CleanData
+from .wikimedia_request import WikimediaRequest
+from .clean_data import CleanData
 
 class WikimediaInteraction:
 
@@ -25,7 +25,7 @@ class WikimediaInteraction:
         return final_result
 
 
-interact = WikimediaInteraction('Cité Paradis')
+interact = WikimediaInteraction(' Rue du louvre')
 
 result = interact.get_content()
 print(result)
