@@ -3,19 +3,43 @@
 Blue : #037F8C
 
 */
+
+@font-face{
+font-family: Caramella;
+src: url('../fonts/Caramella_Regular.ttf');
+}
+
 * {
   margin: 0;
 }
 header {
   background-color: lightgreen;
   text-align: center;
+  margin-bottom: 20px;
+  min-height: 210px;
+}
+.grandpy-logo {
+  border-radius: 50%;
+  border: 5px solid white;
+  height: 170px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
 .inner-header {
   display: inline-block;
-  position: relative;
-  width: 400px;
-  margin: 4% 40% 4% auto;
-  background-color: inherit;
+  margin-top: 15px;
+  background-color: transparent;
+  position: absolute;
+  left: 20px;
+  right: 20px;
+}
+.inner-header h1{
+  padding: 5px;
+  font-family: Caramella;
+  color: #222;
+  font-weight: 400;
+  font-size: 60px;
 }
 
 body {
@@ -23,25 +47,23 @@ body {
 }
 .text-zone {
   display: inline-block;
-  min-height: 200px;
-  width: 50%;
+  min-height: 400px;
+  width: 70%;
   border: solid 1px black;
   margin: 15px auto 15px;
 }
 form {
-  margin: 15px;
-  padding-bottom: 35px;
+  margin: 15px auto 0;
+  padding-bottom: 10px;
   text-align: center;
 }
-
 form #user_text {
   display: inline-block;
   border: 1px solid #333;
   border-radius: 4px;
-  width: 40%;
+  width: 55%;
   padding: 12px 20px;
 }
-
 form #submit_button {
   display: block;
   margin: 15px auto 15px;
@@ -55,12 +77,8 @@ form #submit_button {
 footer {
   background-color: lightgreen;
   text-align: center;
-  margin: 25px auto auto;
+  margin: 10px auto 0;
   min-height: 100px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 .inner-footer {
   display: inline-block;
@@ -74,6 +92,7 @@ footer {
   margin-top: 15px;
   font-family: Menlo, monospace;
   list-style-type: None;
+  padding-left: 0;
 }
 .inner-footer a {
   color: black;
@@ -84,5 +103,141 @@ footer {
 @media (min-width: 500px) {
   ul {
     grid-auto-flow: column;
+  }
+}
+@media (max-width: 500px) {
+  .grandpy-logo {
+    height: 70px;
+  }
+  .inner-header h1{
+    font-size: 25px;
+  }
+  ul {
+    grid-gap: 12px;
+  }
+}
+@media (max-width: 1300px) {
+  .inner-header h1{
+    font-size: 55px;
+  }
+  .grandpy-logo {
+    height: 150px;
+  }
+  header {
+    min-height: 190px;
+  }
+}
+@media (max-width: 1150px) {
+  .inner-header h1{
+    font-size: 50px;
+  }
+  .grandpy-logo {
+    height: 140px;
+  }
+  header {
+    min-height: 170px;
+  }
+}
+@media (max-width: 1040px) {
+  .inner-header h1{
+    font-size: 40px;
+  }
+  .grandpy-logo {
+    height: 120px;
+  }
+  header {
+    min-height: 150px;
+  }
+}
+@media (max-width: 880px) {
+  .inner-header h1{
+    font-size: 40px;
+    margin-left: 100px;
+  }
+  .grandpy-logo {
+    height: 120px;
+  }
+  header {
+    min-height: 150px;
+  }
+}
+@media (max-width: 750px) {
+  .inner-header h1{
+    font-size: 35px;
+  }
+  .grandpy-logo {
+    height: 110px;
+  }
+  header {
+    min-height: 140px;
+  }
+}
+@media (max-width: 650px) {
+  .inner-header h1{
+    font-size: 30px;
+  }
+  .grandpy-logo {
+    height: 90px;
+  }
+  header {
+    min-height: 120px;
+  }
+}
+@media (max-width: 560px) {
+  .inner-header {
+    margin-top: 5px;
+  }
+  .inner-header h1{
+    font-size: 25px;
+    margin-left: 50px;
+  }
+  .grandpy-logo {
+    height: 70px;
+  }
+  header {
+    min-height: 95px;
+  }
+}
+@media (max-width: 495px) {
+  .inner-header h1{
+    font-size: 22px;
+    margin-left: 50px;
+  }
+  .grandpy-logo {
+    height: 60px;
+  }
+  header {
+    min-height: 85px;
+  }
+}
+@media (max-width: 430px) {
+  .inner-header h1{
+    font-size: 17px;
+    margin-left: 40px;
+  }
+  .grandpy-logo {
+    height: 40px;
+  }
+  header {
+    min-height: 65px;
+  }
+}
+@media (max-width: 330px) {
+  .inner-header {
+    margin-top: 2px;
+    right: 0;
+    left: 10px;
+  }
+  .inner-header h1{
+    font-size: 14px;
+    margin-left: 40px;
+    padding-bottom: 0;
+  }
+  .grandpy-logo {
+    top: 5px;
+    height: 30px;
+  }
+  header {
+    min-height: 50px;
   }
 }
