@@ -1,31 +1,30 @@
-import json
-
-from .wikimedia_request import WikimediaRequest
-from .clean_data import CleanData
+from app.API.Wikimedia.wikimedia_request import WikimediaRequest
+# from wikimedia_request import WikimediaRequest
 
 class WikimediaInteraction:
 
     def __init__(self, search):
         self.search = search
-        self.url = str("https://fr.wikipedia.org/w/api.php"
-        "?action=query&format=json&prop=extracts&titles={0}"
-        "&redirects=1&exsentences=4&explaintext=1".format(self.search))
 
     def get_content(self):
-        response = WikimediaRequest.request(self.url)
+        try:
+            response = WikimediaRequest.request(self.search)
 
-        json_response = json.loads(response.text)
+            for key in response["query"]["pages"]:
+                keyid = key
+            result = response["query"]["pages"][keyid]["extract"]
 
-        for key in json_response["query"]["pages"]:
-            keyid = key
-        result = json_response["query"]["pages"][keyid]["extract"]
+            final_result = " ".join(result.split())
 
-        final_result = CleanData.clean(result)
+            return final_result
 
-        return final_result
+        except(KeyError):
+            return ("Pas de résultat sur wikipédia")
+        else:
+            return ("Une erreur est survenue")
 
 
-interact = WikimediaInteraction("Rue de Rivoli")
-
-result = interact.get_content()
-print(result)
+# interact = WikimediaInteraction("Cité Paradis")
+#
+# result = interact.get_content()
+# print(result)

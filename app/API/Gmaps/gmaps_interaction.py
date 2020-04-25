@@ -1,46 +1,38 @@
-from dotenv import load_dotenv
-
 import os
 import requests
-import json
 
-from .gmaps_request import GmapsRequest
-
-load_dotenv()
+from app.API.Gmaps.gmaps_request import GmapsRequest
+# from gmaps_request import GmapsRequest
 
 class GmapsInteraction:
 
-    API_KEY = os.environ['API_KEY']
-
     def __init__(self, search):
         self.search = search
-        self.url = str("https://maps.googleapis.com/maps/api/place/textsearch"
-        "/json?query={}&key={}").format(self.search, self.API_KEY)
 
     def get_content(self):
-        response = GmapsRequest.request(self.url)
-        json_response = json.loads(response.text)
-        results = {'address': None,
-                   'lat': None,
-                   'lng': None
-                   }
-        #creusons dans le dictionnaire
-        #Il me faut les coordonnées GPS et l'adresse
-        address = json_response['results'][0]['formatted_address']
-        lat = json_response['results'][0]['geometry']['location']['lat']
-        lng = json_response['results'][0]['geometry']['location']['lng']
+        try:
+            json_response = GmapsRequest.request(self.search)
 
-        #range les résultats
-        results['address'] = address
-        results['lat'] = lat
-        results['lng'] = lng
+            results = {}
 
-        return results
+            address = json_response['results'][0]['formatted_address']
+            lat = json_response['results'][0]['geometry']['location']['lat']
+            lng = json_response['results'][0]['geometry']['location']['lng']
 
-        # return json_response["id"]
+            results['address'] = address
+            results['lat'] = lat
+            results['lng'] = lng
 
-obj = GmapsInteraction('Mairie de Paris')
+            return results
 
-response = obj.get_content()
+        except(IndexError):
+            return ("Lieu introuvable sur Google Maps")
+        else:
+            return ("Une erreur est survenue")
 
-print(response['address'], response['lat'], response['lng'])
+
+# obj = GmapsInteraction('Poudlard')
+#
+# response = obj.get_content()
+#
+# print(response)

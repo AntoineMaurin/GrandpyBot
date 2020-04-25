@@ -18,10 +18,20 @@ def ajax():
     # Askin G-Maps API to get the place
     gmap = GmapsInteraction(user_text)
     response = gmap.get_content()
-    print('response : ', response)
-    # Parsing the address to ask Wikimedia about the place
-    wiki_search = AddressParsing.parse(response['address'])
-    # Wikimedia call
-    wiki_obj = WikimediaInteraction(wiki_search)
-    wiki_response = wiki_obj.get_content()
-    return jsonify(wiki_response)
+    print('\nréponse google maps : ', response, '\n')
+
+    if isinstance(response, str):
+        return jsonify(response)
+
+    elif isinstance(response, dict):
+        # Parsing the address to ask Wikimedia about the place
+        wiki_search = AddressParsing.parse(response['address'])
+        print('\nrecherche wikimédia : ', wiki_search, '\n')
+        # Wikimedia call
+        # print(wiki_search)
+        wiki_obj = WikimediaInteraction(wiki_search)
+        wiki_response = wiki_obj.get_content()
+        print('\nrésultat wikimédia : ', wiki_response, '\n')
+        return jsonify(wiki_response)
+    else:
+        return("Un problème mystérieux est survenu")

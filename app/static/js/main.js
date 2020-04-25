@@ -20,3 +20,20 @@ form.addEventListener("submit", function (event){
   })
 
 });
+
+// <div class="madiv">
+//   <section id="masection">
+//     <p>Coffee</p>
+//     <p>Tea</p>
+//   </section>
+// </div>
+//
+// <button onclick="myFunction()">Try it</button>
+//
+// <script>
+// function myFunction() {
+//   var node = document.createElement("p");
+//   node.innerHTML = "Water";
+//   document.getElementById("masection").appendChild(node);
+// }
+// </script>
