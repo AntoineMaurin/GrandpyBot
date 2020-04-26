@@ -78,4 +78,5 @@ class TestWikimediaInteraction:
         mock_bad_key.return_value = bad_dict
         obj = WikimediaInteraction(self.TEXT)
         response = obj.get_content()
-        assert response == 'Pas de résultat sur wikipédia'
+        assert response == ("Hmm, {} je ne connais pas grand chose sur "
+                            "cet endroit, désolé.".format(obj.search))

@@ -10,10 +10,9 @@ class GmapsInteraction:
         self.search = search
 
     def get_content(self):
+        results = {}
         try:
             json_response = GmapsRequest.request(self.search)
-
-            results = {}
 
             address = json_response['results'][0]['formatted_address']
             lat = json_response['results'][0]['geometry']['location']['lat']
@@ -26,9 +25,12 @@ class GmapsInteraction:
             return results
 
         except(IndexError):
-            return ("Lieu introuvable sur Google Maps")
+            results['error_msg'] = ("Il me semble que cet endroit n'existe "
+                                    "pas, pourtant j'ai énormément voyagé..")
+            return results
         else:
-            return ("Une erreur est survenue")
+            results['error_msg'] = ("Une erreur est survenue")
+            return results
 
 
 # obj = GmapsInteraction('Poudlard')

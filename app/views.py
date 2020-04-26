@@ -8,6 +8,8 @@ from app.API.Wikimedia.wikimedia_interaction import WikimediaInteraction
 from . import app
 from . import utils
 
+import json
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -19,11 +21,14 @@ def ajax():
     gmap = GmapsInteraction(user_text)
     response = gmap.get_content()
     print('\nréponse google maps : ', response, '\n')
+    response_dict = {}
+    response_dict['user_text'] = user_text
 
-    if isinstance(response, str):
-        return jsonify(response)
-
-    elif isinstance(response, dict):
+    if 'error_msg' in response.keys():
+        print(response_dict)
+        response_dict['error_msg'] = response['error_msg']
+        return jsonify(response_dict)
+    else:
         # Parsing the address to ask Wikimedia about the place
         wiki_search = AddressParsing.parse(response['address'])
         print('\nrecherche wikimédia : ', wiki_search, '\n')
@@ -32,6 +37,10 @@ def ajax():
         wiki_obj = WikimediaInteraction(wiki_search)
         wiki_response = wiki_obj.get_content()
         print('\nrésultat wikimédia : ', wiki_response, '\n')
-        return jsonify(wiki_response)
-    else:
-        return("Un problème mystérieux est survenu")
+
+        response_dict['wiki_response'] = wiki_response
+        response_dict['lat'] = response['lat']
+        response_dict['lng'] = response['lng']
+
+        print(response_dict)
+        return jsonify(response_dict)

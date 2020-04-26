@@ -50,7 +50,11 @@ class TestGmapsInteraction:
         mock_bad_dict.return_value = bad_dict
         obj = GmapsInteraction('Poudlard')
         response = obj.get_content()
-        assert response == ('Lieu introuvable sur Google Maps')
+        supposed_response = {}
+        supposed_response['error_msg'] = ("Il me semble que cet endroit "
+                                          "n'existe pas, pourtant j'ai "
+                                          "énormément voyagé..")
+        assert response == supposed_response
 
     # @patch('gmaps_interaction.GmapsInteraction.get_content')
     # def test_get_content(self, mock_get_content):

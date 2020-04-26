@@ -19,7 +19,8 @@ class WikimediaInteraction:
             return final_result
 
         except(KeyError):
-            return ("Pas de résultat sur wikipédia")
+            return ("Hmm, {} je ne connais pas grand chose sur cet "
+                   "endroit, désolé.".format(self.search))
         else:
             return ("Une erreur est survenue")
 
