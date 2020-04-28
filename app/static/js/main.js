@@ -9,19 +9,35 @@ function postFormData(url, data) {
   .catch(error => console.log(error));
 }
 
+function initMap(placement, lat, lng) {
+  coordinates = {lat: lat, lng: lng}
+
+  var map = new google.maps.Map(placement, {
+    center: coordinates,
+    zoom: 15
+  });
+  var marker = new google.maps.Marker({position: coordinates, map: map});
+}
+
 function printInfos(data) {
   var grandpy_msg = document.createElement("p");
   var user_msg = document.createElement("p");
   user_msg.classList.add("user-msg");
+  var map_msg = document.createElement("div");
+  map_msg.setAttribute("id", "chat");
   if ('error_msg' in data) {
-    grandpy_msg.innerHTML = data['error_msg'];
     user_msg.innerHTML = data['user_text'];
+    grandpy_msg.innerHTML = data['error_msg'];
+    document.getElementById("text-zone").appendChild(user_msg);
+    document.getElementById("text-zone").appendChild(grandpy_msg);
   } else {
     user_msg.innerHTML = data['user_text'];
     grandpy_msg.innerHTML = data['wiki_response'];
+    initMap(map_msg, data['lat'], data['lng']);
+    document.getElementById("text-zone").appendChild(user_msg);
+    document.getElementById("text-zone").appendChild(grandpy_msg);
+    document.getElementById("text-zone").appendChild(map_msg);
   }
-  document.getElementById("text-section").appendChild(user_msg);
-  document.getElementById("text-section").appendChild(grandpy_msg);
 }
 
 form.addEventListener("submit", function (event){
@@ -34,24 +50,6 @@ form.addEventListener("submit", function (event){
     printInfos(response)
     console.log(response['wiki_response'], response['lat'], response['lng']);
   })
-  .catch(error => printInfos(error));
-
+  .catch(error => console.log(error));
 
 });
-
-// <div class="madiv">
-//   <section id="masection">
-//     <p>Coffee</p>
-//     <p>Tea</p>
-//   </section>
-// </div>
-//
-// <button onclick="myFunction()">Try it</button>
-//
-// <script>
-// function myFunction() {
-//   var msg = document.createElement("p");
-//   msg.innerHTML = "Water";
-//   document.getElementById("masection").appendChild(msg);
-// }
-// </script>

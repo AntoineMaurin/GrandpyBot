@@ -15,10 +15,8 @@
       </div>
     </header>
 
-    <div class="text-zone">
-      <section id="text-section">
-      </section>
-    </div>
+    <div id="text-zone"></div>
+
     <form id="user_text_form">
       <p>
         <label for="user_text"></label>
@@ -26,7 +24,10 @@
         <input id="submit_button" type="submit" value="Envoyer">
       </p>
     </form>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- <script type="module" src="{{ url_for('static', filename='js/config.js') }}"></script> -->
+    <script defer type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuOXeP98H4VMa7ww2h9GcbKBang9A4aGs"
+    async defer></script>
 
     <footer>
       <div class="inner-footer">

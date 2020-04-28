@@ -1,5 +1,7 @@
 from flask import render_template, jsonify, request
 
+from dotenv import load_dotenv
+
 from app.API.Gmaps.gmaps_interaction import GmapsInteraction
 from app.API.Gmaps.address_parsing import AddressParsing
 
@@ -9,6 +11,9 @@ from . import app
 from . import utils
 
 import json
+import os
+
+load_dotenv()
 
 @app.route("/")
 def home():
@@ -23,6 +28,7 @@ def ajax():
     print('\nréponse google maps : ', response, '\n')
     response_dict = {}
     response_dict['user_text'] = user_text
+    # response_dict['API_KEY'] = os.environ['API_KEY']
 
     if 'error_msg' in response.keys():
         print(response_dict)
