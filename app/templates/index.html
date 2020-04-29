@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="utf-8">
     <title>GrandpyBot</title>
   </head>
@@ -21,13 +22,18 @@
       <p>
         <label for="user_text"></label>
         <input id="user_text" type="text" name="user_text" placeholder="Posez une question à GrandPy"></input>
-        <input id="submit_button" type="submit" value="Envoyer">
+        <div>
+          <input id="submit_button" type="submit" value="Envoyer"></input>
+          <div id="loading_circle"></div>
+        </div>
       </p>
     </form>
+
     <!-- <script type="module" src="{{ url_for('static', filename='js/config.js') }}"></script> -->
     <script defer type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuOXeP98H4VMa7ww2h9GcbKBang9A4aGs"
     async defer></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 
     <footer>
       <div class="inner-footer">

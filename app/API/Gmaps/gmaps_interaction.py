@@ -33,7 +33,7 @@ class GmapsInteraction:
             return results
 
 
-# obj = GmapsInteraction('Poudlard')
+# obj = GmapsInteraction('OpenClassrooms')
 #
 # response = obj.get_content()
 #

@@ -1,31 +1,47 @@
 from app.API.Wikimedia.wikimedia_request import WikimediaRequest
 # from wikimedia_request import WikimediaRequest
 
+import random
+import re
+
 class WikimediaInteraction:
 
-    def __init__(self, search):
-        self.search = search
+    def __init__(self, pageids):
+        page_id = random.choice(pageids)
+        self.search_id = page_id
+
+    def clean_data(self, text):
+        cleanr = re.compile('=.*?=')
+        res = re.sub(cleanr, '', text)
+        return res
 
     def get_content(self):
         try:
-            response = WikimediaRequest.request(self.search)
+            response_dict = {}
+            response = WikimediaRequest.request(self.search_id)
 
-            for key in response["query"]["pages"]:
-                keyid = key
-            result = response["query"]["pages"][keyid]["extract"]
+            result = response["query"]["pages"][str(self.search_id)]["extract"]
+            title = response["query"]["pages"][str(self.search_id)]["title"]
 
             final_result = " ".join(result.split())
 
-            return final_result
+            final_result = final_result[:400] + '...'
+
+            response_dict['text'] = self.clean_data(final_result)
+            response_dict['title'] = title
+            response_dict['url'] = "https://fr.wikipedia.org/wiki/" + title
+
+            return response_dict
 
         except(KeyError):
-            return ("Hmm, {} je ne connais pas grand chose sur cet "
-                   "endroit, désolé.".format(self.search))
+            return ("Hmm, je ne connais pas grand chose sur cet "
+                   "endroit, désolé.")
         else:
             return ("Une erreur est survenue")
 
 
-# interact = WikimediaInteraction("Cité Paradis")
+# list = [5653202]
 #
+# interact = WikimediaInteraction(list)
 # result = interact.get_content()
 # print(result)

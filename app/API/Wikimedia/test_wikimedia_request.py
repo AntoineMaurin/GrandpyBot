@@ -17,10 +17,11 @@ class TestWikimediaRequest:
         r = WikimediaRequest.request(self.TEXT)
         assert isinstance(r, dict)
 
-    def test_dict_tranform_fails(self):
+    @patch('app.API.Wikimedia.wikimedia_request.requests.get')
+    def test_return_value_when_error(self, mock_bad_status_code):
+        mock_bad_status_code.return_value.status_code = 404
         r = WikimediaRequest.request(self.TEXT)
-        with pytest.raises(AssertionError):
-            assert not isinstance(r, dict)
+        assert isinstance(r, str)
 
     @patch('app.API.Wikimedia.wikimedia_request.requests.get')
     def test_bad_status_code(self, mock_bad_status_code):
