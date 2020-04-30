@@ -22,16 +22,13 @@ class TestGmapsRequest:
     def setup_function(self, mock_text):
         mock_text.return_value.text = str(self.DATA)
 
-    def test_dict_tranform(self):
+    @patch('app.API.Gmaps.gmaps_request.requests.get')
+    def test_return_value_when_error(self, mock_bad_status_code):
+        mock_bad_status_code.return_value.status_code = 404
         r = GmapsRequest.request(self.TEXT)
-        assert isinstance(r, dict)
+        assert isinstance(r, str)
 
-    def test_dict_tranform_fails(self):
-        r = GmapsRequest.request(self.TEXT)
-        with pytest.raises(AssertionError):
-            assert not isinstance(r, dict)
-
-    @patch('gmaps_request.requests.get')
+    @patch('app.API.Gmaps.gmaps_request.requests.get')
     def test_bad_status_code(self, mock_bad_status_code):
         mock_bad_status_code.return_value.status_code = 404
         response = GmapsRequest.request(self.TEXT)

@@ -18,3 +18,5 @@ class WikimediaRequest:
 
         except(AssertionError):
             return ("Problème pour contacter l'API Wikimedia")
+        else:
+            return ("Une erreur est survenue")

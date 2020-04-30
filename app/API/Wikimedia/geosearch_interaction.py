@@ -1,7 +1,6 @@
 import random
 
 from app.API.Wikimedia.geosearch_request import GeoSearchRequest
-# from geosearch_request import GeoSearchRequest
 
 class GeoSearchInteraction:
     def __init__(self, pos):
@@ -21,6 +20,3 @@ class GeoSearchInteraction:
                    "endroit, désolé.")
         else:
             return ("Une erreur est survenue")
-
-obj = GeoSearchInteraction((48.8748465, 2.3504873))
-obj.get_page_id()

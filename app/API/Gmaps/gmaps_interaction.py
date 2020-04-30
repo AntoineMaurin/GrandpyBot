@@ -2,7 +2,6 @@ import os
 import requests
 
 from app.API.Gmaps.gmaps_request import GmapsRequest
-# from gmaps_request import GmapsRequest
 
 class GmapsInteraction:
 
@@ -25,16 +24,9 @@ class GmapsInteraction:
             return results
 
         except(IndexError):
-            results['error_msg'] = ("Il me semble que cet endroit n'existe "
-                                    "pas, pourtant j'ai énormément voyagé..")
+            results['error_msg'] = ("Je n'ai pas bien compris ta question, "
+                                    "veux-tu reformuler s'il te plaît ?")
             return results
         else:
             results['error_msg'] = ("Une erreur est survenue")
             return results
-
-
-# obj = GmapsInteraction('OpenClassrooms')
-#
-# response = obj.get_content()
-#
-# print(response)

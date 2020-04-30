@@ -27,7 +27,3 @@ class GmapsRequest:
             return ("Problème pour contacter l'API Google Places")
         else:
             return ("Une erreur est survenue")
-
-# r = GmapsRequest.request('OpenClassrooms')
-# print(r)
-# print(type(r))

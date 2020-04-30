@@ -1,5 +1,4 @@
 from app.API.Wikimedia.wikimedia_request import WikimediaRequest
-# from wikimedia_request import WikimediaRequest
 
 import random
 import re
@@ -38,10 +37,3 @@ class WikimediaInteraction:
                    "endroit, désolé.")
         else:
             return ("Une erreur est survenue")
-
-
-# list = [5653202]
-#
-# interact = WikimediaInteraction(list)
-# result = interact.get_content()
-# print(result)

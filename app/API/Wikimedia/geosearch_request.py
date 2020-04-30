@@ -19,7 +19,5 @@ class GeoSearchRequest:
 
         except(AssertionError):
             return ("Problème pour contacter l'API Wikimedia")
-
-
-# obj = GeoSearchRequest()
-# print(obj.request((48.8748465, 2.3504873)))
+        else:
+            return ("Une erreur est survenue")

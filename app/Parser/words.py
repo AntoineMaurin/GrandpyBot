@@ -62,11 +62,15 @@ stopwords = ["a","abord","absolument","afin","ah","ai","aie","ailleurs","ainsi",
 "telles","tels","tenant","tend","tenir","tente","tes","tic","tien","tienne",
 "tiennes","tiens","toc","toi","toi-même","ton","touchant","toujours","tous",
 "tout","toute","toutefois","toutes","treize","trente","tres","trois",
-"troisième","troisièmement","trop","très","tsoin","tsouin","tu","té","u","un",
+"troisième","troisièmement","trop","très","tsoin","tsouin","tu","té","un",
 "une","unes","uniformement","unique","uniques","uns","v","va","vais","vas",
 "vers","via","vif","vifs","vingt","vivat","vive","vives","vlan","voici",
 "voilà","vont","vos","votre","vous","vous-mêmes","vu","vé","vôtre","vôtres",
 "w","x","y","z","zut","à","â","ça","ès","étaient","étais","était","étant",
 "été","être","ô"]
 
-adress_words = ['adresse', "l'addresse", "où", "trouve"]
+pre_keyword_words = ["ou est", "trouve-t-on", "ou trouver", "ou je peux trouver", "ou se trouve", "ou se situe", "l'adresse de", "l'adresse d'", "l'adresse du", "l'emplacement de"]
+
+politeness_words = ['salut', 'bonjour', 'bonsoir', 'grandpy', "s'il te plait", "s'il", "plait", "stp", "merci", "exactement", "precisement", "au juste"]
+
+punctuation = [",", ".", "!", ";", "/", "(", "_", ")"]

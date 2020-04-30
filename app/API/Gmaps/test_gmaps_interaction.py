@@ -51,18 +51,7 @@ class TestGmapsInteraction:
         obj = GmapsInteraction('Poudlard')
         response = obj.get_content()
         supposed_response = {}
-        supposed_response['error_msg'] = ("Il me semble que cet endroit "
-                                          "n'existe pas, pourtant j'ai "
-                                          "énormément voyagé..")
+        supposed_response['error_msg'] = ("Je n'ai pas bien compris"
+                                          " ta question, veux-tu reformuler"
+                                          " s'il te plaît ?")
         assert response == supposed_response
-
-    # @patch('gmaps_interaction.GmapsInteraction.get_content')
-    # def test_get_content(self, mock_get_content):
-    #     infos = ('6 Cité Paradis, 75010 Paris', 33.501, 28.904)
-    #     mock_get_content.return_value = infos
-    #
-    #     test = GmapsInteraction(self.TEXT)
-    #     response = test.get_content()
-    #     assert response == infos
-
-# Test transmission des données à la classe API Wiki

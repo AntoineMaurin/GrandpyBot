@@ -9,7 +9,7 @@ function postFormData(url, data) {
   .catch(error => console.log(error));
 }
 
-function initMap(placement, lat, lng) {
+function createMap(placement, lat, lng) {
   coordinates = {lat: lat, lng: lng}
 
   var map = new google.maps.Map(placement, {
@@ -37,14 +37,11 @@ function printInfos(data) {
   } else {
     var url_elt = document.createElement("a");
     url_elt.setAttribute("href", data['url']);
-    var reader_icon = document.createElement("ion-icon");
-    reader_icon.setAttribute("name", "reader-outline");
-    url_elt.innerHTML = "  En savoir plus sur wikipédia ";
-    url_elt.appendChild(reader_icon);
+    url_elt.innerHTML = "  En savoir plus sur wikipédia";
     user_msg.innerText = data['user_text'];
     grandpy_msg.innerHTML = data['grandpy_msg']
     grandpy_msg.appendChild(url_elt);
-    initMap(map_msg, data['lat'], data['lng']);
+    createMap(map_msg, data['lat'], data['lng']);
     document.getElementById("text-zone").appendChild(user_msg);
     document.getElementById("text-zone").appendChild(grandpy_msg);
     document.getElementById("text-zone").appendChild(map_msg);
@@ -57,8 +54,7 @@ form.addEventListener("submit", function (event){
   event.preventDefault();
   console.log("Formulaire envoyé !");
 
-  //Envoyer contenu formulaire au serveur
-  postFormData("/ajax", new FormData(form))
+  postFormData("/thinking", new FormData(form))
   .then(response => {
     printInfos(response)
     console.log(response);
