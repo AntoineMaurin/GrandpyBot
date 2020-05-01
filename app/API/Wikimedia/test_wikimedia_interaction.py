@@ -38,7 +38,7 @@ class TestWikimediaInteraction:
 
         obj = WikimediaInteraction(self.IDS)
         response = obj.get_content()
-        assert response['text'] == "La cité Paradis est une voie publique..."
+        assert response['text'] == "La cité Paradis est une voie publique... "
 
 
     @patch('app.API.Wikimedia.wikimedia_request.WikimediaRequest.request')

@@ -19,11 +19,15 @@ function createMap(placement, lat, lng) {
   var marker = new google.maps.Marker({position: coordinates, map: map});
 }
 
+function printMessages(user_msg, grandpy_msg){
+  document.getElementById("text-zone").appendChild(user_msg);
+  document.getElementById("text-zone").appendChild(grandpy_msg);
+}
+
 function printInfos(data) {
   var grandpy_msg = document.createElement("p");
 
   var user_msg = document.createElement("p");
-
   user_msg.classList.add("user-msg");
 
   var map_msg = document.createElement("div");
@@ -32,19 +36,29 @@ function printInfos(data) {
   if ('error_msg' in data) {
     user_msg.innerText = data['user_text'];
     grandpy_msg.innerHTML = data['error_msg'];
-    document.getElementById("text-zone").appendChild(user_msg);
-    document.getElementById("text-zone").appendChild(grandpy_msg);
-  } else {
-    var url_elt = document.createElement("a");
-    url_elt.setAttribute("href", data['url']);
-    url_elt.innerHTML = "  En savoir plus sur wikipédia";
+    printMessages(user_msg, grandpy_msg);
+  } else if ('special_text' in data) {
     user_msg.innerText = data['user_text'];
-    grandpy_msg.innerHTML = data['grandpy_msg']
-    grandpy_msg.appendChild(url_elt);
-    createMap(map_msg, data['lat'], data['lng']);
-    document.getElementById("text-zone").appendChild(user_msg);
-    document.getElementById("text-zone").appendChild(grandpy_msg);
-    document.getElementById("text-zone").appendChild(map_msg);
+    grandpy_msg.innerHTML = data['special_text'];
+    printMessages(user_msg, grandpy_msg);
+  }
+   else if ('url' in data) {
+     var url_elt = document.createElement("a");
+     url_elt.setAttribute("href", data['url']);
+     url_elt.innerHTML = "  En savoir plus sur wikipédia";
+     user_msg.innerText = data['user_text'];
+     grandpy_msg.innerHTML = data['grandpy_msg']
+     grandpy_msg.appendChild(url_elt);
+     createMap(map_msg, data['lat'], data['lng']);
+     printMessages(user_msg, grandpy_msg);
+     document.getElementById("text-zone").appendChild(map_msg);
+   }
+   else {
+     user_msg.innerText = data['user_text'];
+     grandpy_msg.innerHTML = data['grandpy_msg']
+     createMap(map_msg, data['lat'], data['lng']);
+     printMessages(user_msg, grandpy_msg);
+     document.getElementById("text-zone").appendChild(map_msg);
   }
   document.getElementById('loading_circle').style.display = 'none';
 }
@@ -52,12 +66,10 @@ function printInfos(data) {
 form.addEventListener("submit", function (event){
   document.getElementById('loading_circle').style.display = 'inline-block';
   event.preventDefault();
-  console.log("Formulaire envoyé !");
 
   postFormData("/thinking", new FormData(form))
   .then(response => {
-    printInfos(response)
-    console.log(response);
+    printInfos(response);
   })
   .catch(error => console.log(error));
 

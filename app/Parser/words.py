@@ -21,10 +21,10 @@ stopwords = ["a","abord","absolument","afin","ah","ai","aie","ailleurs","ainsi",
 "dix-sept","dixième","doit","doivent","donc","dont","douze","douzième","dring",
 "du","duquel","durant","dès","désormais","e","effet","egale","egalement",
 "egales","eh","elle","elle-même","elles","elles-mêmes","en","encore","enfin",
-"entre","envers","environ","es","est","est-ce","et","etant","etc","etre","eu","euh",
-"eux","eux-mêmes","exactement","excepté","extenso","exterieur","f","fais",
-"faisaient","faisant","fait","façon","feront","fi","flac","floc","font","g",
-"gens","h","ha","hein","hem","hep","hi","ho","holà","hop","hormis","hors",
+"entre","envers","environ","es","est","est-ce","et","etant","etc","etre","eu",
+"euh","eux","eux-mêmes","exactement","excepté","extenso","exterieur","f",
+"fais","faisaient","faisant","fait","façon","feront","fi","flac","floc","font",
+"g","gens","h","ha","hein","hem","hep","hi","ho","holà","hop","hormis","hors",
 "hou","houp","hue","hui","huit","huitième","hum","hurrah","hé","hélas","i",
 "il","ils","importe","j","je","jusqu","jusque","juste","k","l","la","laisser",
 "laquelle","las","le","lequel","les","lesquelles","lesquels","leur","leurs",
@@ -69,8 +69,16 @@ stopwords = ["a","abord","absolument","afin","ah","ai","aie","ailleurs","ainsi",
 "w","x","y","z","zut","à","â","ça","ès","étaient","étais","était","étant",
 "été","être","ô"]
 
-pre_keyword_words = ["ou est", "trouve-t-on", "ou trouver", "ou je peux trouver", "ou se trouve", "ou se situe", "l'adresse de", "l'adresse d'", "l'adresse du", "l'emplacement de"]
+pre_keyword_words = ["ou est", "trouve-t-on", "ou trouver",
+                     "ou je peux trouver", "ou se trouve", "ou se situe",
+                     "l'adresse de", "l'adresse d'", "l'adresse du",
+                     "l'emplacement de", "connaissez-vous", "me dire sur le",
+                     "parle moi de", "a propos de", "a propos du",
+                     "a propos d'", "je cherche"]
 
-politeness_words = ['salut', 'bonjour', 'bonsoir', 'grandpy', "s'il te plait", "s'il", "plait", "stp", "merci", "exactement", "precisement", "au juste"]
+politeness_words = ["s'il te plait", "s'il", "plait", "stp", "merci"]
+
+how_are_you = ["comment vas tu", "comment vas-tu",  "comment tu vas",
+               "ca va", "tu vas bien"]
 
 punctuation = [",", ".", "!", ";", "/", "(", "_", ")"]

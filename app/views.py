@@ -20,5 +20,5 @@ def thinking():
 
     obj = GrandpyThinks(user_text)
     response_dict = obj.reflection()
-
+    print("\n\n\n", response_dict, "\n\n\n")
     return jsonify(response_dict)

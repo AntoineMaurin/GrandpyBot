@@ -6,8 +6,13 @@ import re
 class WikimediaInteraction:
 
     def __init__(self, pageids):
-        page_id = random.choice(pageids)
-        self.search_id = page_id
+        self.error_msg = ""
+        try:
+            page_id = random.choice(pageids)
+            self.search_id = page_id
+        except(IndexError):
+            self.error_msg = ("Cela se trouve ici, mais je suis désolé, je ne"
+                              " connais pas grand chose sur cet endroit..")
 
     def clean_data(self, text):
         cleanr = re.compile('=.*?=')
@@ -24,7 +29,7 @@ class WikimediaInteraction:
 
             final_result = " ".join(result.split())
 
-            final_result = final_result[:400] + '...'
+            final_result = final_result[:400] + '... '
 
             response_dict['text'] = self.clean_data(final_result)
             response_dict['title'] = title

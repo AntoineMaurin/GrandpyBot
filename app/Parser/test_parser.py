@@ -25,12 +25,12 @@ class TestParser:
         for i, j in enumerate(self.TEXT):
             obj = Parser(j)
             r = obj.parse()
-            assert r == self.RESPONSES[i]
+            assert r['keyword'] == self.RESPONSES[i]
 
     def test_return_type(self):
         obj = Parser(self.TEXT[0])
         r = obj.parse()
-        assert isinstance(r, str)
+        assert isinstance(r, dict)
 
     def test_delete_accents_and_lower(self):
         obj = Parser(self.TEXT[2])
