@@ -26,9 +26,11 @@ class GmapsInteraction:
 
         except(IndexError):
 
-            results['error_msg'] = ("Je n'ai pas bien compris ta question,"
-                                    " veux-tu reformuler s'il te plaît ?")
+            msg = ("Qu'est ce que tu dis ? ", self.search, " ? Je ne connais"
+                   " pas ce lieu, ou peut-être ai-je mal compris.. veux-tu"
+                   " reformuler s'il te plaît ?")
+            results['error_msg'] = msg
             return results
         else:
-            results['error_msg'] = ("Une erreur est survenue")
+            results['error_msg'] = ("J'en tombe de ma chaise !")
             return results

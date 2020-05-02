@@ -48,11 +48,11 @@ body {
   display: inline-block;
   height: 400px;
   height: 500px;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 70%;
-  border: solid 1px black;
   margin: 15px auto 15px;
   scroll-behavior: smooth;
+  box-shadow: 0 0 10px;
 }
 #text-zone p {
   margin: 10px;
@@ -62,6 +62,7 @@ body {
   font-family: Caramella;
   color: #222;
   font-size: 20px;
+  border: solid 1px #3333336b;
 }
 
 #text-zone p a {
@@ -72,12 +73,14 @@ body {
 
 #text-zone .user-msg {
   margin: 10px;
-  background-color: #63c49b;
+  background-color: lightgreen;
   padding: 5px;
   border-radius: 15px;
   font-family: Caramella;
   color: #222;
   font-size: 20px;
+  min-height: 25px;
+  border: solid 1px #3333336b;
 }
 #text-zone #chat {
   margin: auto;
@@ -92,20 +95,36 @@ form {
 }
 form #user_text {
   display: inline-block;
-  border: 1px solid #333;
+  border: solid 1px #2d2d2db5;
+  font-family: Caramella;
+  font-size: 20px;
   border-radius: 4px;
   width: 55%;
   padding: 12px 20px;
 }
 form #submit_button {
   display: block;
+  font-family: Caramella;
+  font-size: 20px;
   margin: 15px auto 15px;
   padding: 20px;
   width: 150px;
-  background-color: #333;
-  color: white;
-  border-radius: 10px;
+  background-color: #acffac;
+  border: solid 1px #3333336b;
+  color: #384634;
+  border-radius: 12px;
   display: inline-block;
+  box-shadow: 0 0 10px #444;
+  transition: .4s;
+  box-shadow: 0px 0px 10px 3px #90df89;
+}
+
+form #submit_button:hover {
+  transform:scale(1.1);
+  transition: .4s;
+  background-color: lightgreen;
+}
+
 }
 form #loading_circle {
   color: #333;

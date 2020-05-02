@@ -26,7 +26,7 @@ stopwords = ["a","abord","absolument","afin","ah","ai","aie","ailleurs","ainsi",
 "fais","faisaient","faisant","fait","façon","feront","fi","flac","floc","font",
 "g","gens","h","ha","hein","hem","hep","hi","ho","holà","hop","hormis","hors",
 "hou","houp","hue","hui","huit","huitième","hum","hurrah","hé","hélas","i",
-"il","ils","importe","j","je","jusqu","jusque","juste","k","l","la","laisser",
+"il","ils","importe","j","je","jusqu","jusque","juste","k","l","laisser",
 "laquelle","las","le","lequel","les","lesquelles","lesquels","leur","leurs",
 "longtemps","lors","lorsque","lui","lui-meme","lui-même","là","lès","m","ma",
 "maint","maintenant","mais","malgre","malgré","maximale","me","meme","memes",
@@ -37,8 +37,8 @@ stopwords = ["a","abord","absolument","afin","ah","ai","aie","ailleurs","ainsi",
 "nombreux","non","nos","notamment","notre","nous","nous-mêmes","nouveau","nul",
 "néanmoins","nôtre","nôtres","o","oh","ohé","ollé","olé","on","ont","onze",
 "onzième","ore","ou","ouf","ouias","oust","ouste","outre","ouvert","ouverte",
-"ouverts","o|","où","p","paf","pan","par","parce","parfois","parle","parlent",
-"parler","parmi","parseme","partant","particulier","particulière",
+"ouverts","o|","où","p","paf","pan","papy","par","parce","parfois","parle",
+"parlent","parler","parmi","parseme","partant","particulier","particulière",
 "particulièrement","pas","passé","pendant","pense","permet","personne","peu",
 "peut","peuvent","peux","pff","pfft","pfut","pif","pire","plein","plouf",
 "plus","plusieurs","plutôt","possessif","possessifs","possible","possibles",
@@ -76,9 +76,24 @@ pre_keyword_words = ["ou est", "trouve-t-on", "ou trouver",
                      "parle moi de", "a propos de", "a propos du",
                      "a propos d'", "je cherche", "que sais tu sur"]
 
-politeness_words = ["s'il te plait", "s'il", "plait", "stp", "merci"]
+politeness_words = ["s'il te plait", "s'il", "plait", "stp", "merci", "grandpy"]
 
 punctuation = [",", ".", "!", ";", "/", "(", "_", ")"]
 
 how_are_you = ["comment vas tu", "comment vas-tu",  "comment tu vas",
                "ca va", "tu vas bien"]
+
+hello_words = ['salut', 'bonjour', 'bonsoir', 'coucou', 'hello', 'salutations',
+               'yo']
+
+masculin = ["barrage", "site", "tunnel", "boulevard", "musée", "buste",
+            "conservatoire", "quartier", "lac", "puy", "logis", "palais",
+            "théâtre", "lycée", "cimetière", "stade", "château", "prieuré"]
+
+feminin = ["rue", "chapelle", "maison", "préfecture", "cité", "grande",
+           "place", "patinoire", "cour", "tour", "gare"]
+
+apostrophe = ["hôtel", "avenue", "allée", "exposition", "arrondissement",
+              "église", "île", "échevinage", "espace", "abbaye", "inspection"]
+
+pluriel = ["galeries"]

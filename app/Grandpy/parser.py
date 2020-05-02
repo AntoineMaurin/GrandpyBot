@@ -11,12 +11,15 @@ class Parser:
         pure_text = self.delete_accents_and_lower(self.text)
         self.response['initial_text'] = pure_text
 
-        self.look_for_special_questions(pure_text)
-        reduced_part = self.search_keyword_part(pure_text)
+        text_without_special_words = self.look_for_special_text(pure_text)
+        reduced_part = self.search_keyword_part(text_without_special_words)
         keyword = self.remove_remaining_words(reduced_part)
 
         self.response['keyword'] = keyword
-        print(self.response)
+
+        if self.response['special_text'] == '':
+            del self.response['special_text']
+
         return self.response
 
     def delete_accents_and_lower(self, text):
@@ -28,11 +31,23 @@ class Parser:
                 text = text.replace(w, '')
         return text
 
-    def look_for_special_questions(self, text):
+    def look_for_special_text(self, text):
+        how_are_you = ''
         for word in words.how_are_you:
             if word in text:
-                msg = "Et bien ma foi, je suis en pleine forme aujourd'hui !"
-                self.response['special_text'] = msg
+                how_are_you = ("Et bien ma foi, je suis en pleine forme "
+                              "aujourd'hui ! ")
+                text = text.replace(word, '')
+
+        hello = ''
+        for word in words.hello_words:
+            if word in text:
+                hello = (word.capitalize() + " la jeunesse ! ")
+                text = text.replace(word, '')
+
+        total_special_text = hello + how_are_you
+        self.response['special_text'] = total_special_text
+        return text
 
     def search_keyword_part(self, text):
         start_pos = 0
@@ -59,3 +74,6 @@ class Parser:
         text = text.split()
 
         return " ".join(text)
+
+# test = Parser("Salut papy ! Comment vas-tu ?! Sais-tu où se trouve Openclassrooms ?")
+# print(test.parse())

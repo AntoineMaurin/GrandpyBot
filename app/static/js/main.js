@@ -33,11 +33,7 @@ function printInfos(data) {
   var map_msg = document.createElement("div");
   map_msg.setAttribute("id", "chat");
 
-  if ('error_msg' in data) {
-    user_msg.innerText = data['user_text'];
-    grandpy_msg.innerHTML = data['error_msg'];
-    printMessages(user_msg, grandpy_msg);
-  } else if ('special_text' in data) {
+  if ('special_text' in data) {
     user_msg.innerText = data['user_text'];
     grandpy_msg.innerHTML = data['special_text'];
     printMessages(user_msg, grandpy_msg);

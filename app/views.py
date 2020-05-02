@@ -3,7 +3,7 @@ from flask import render_template, jsonify, request
 from app.API.Gmaps.gmaps_interaction import GmapsInteraction
 from app.API.Wikimedia.geosearch_interaction import GeoSearchInteraction
 from app.API.Wikimedia.wikimedia_interaction import WikimediaInteraction
-from app.Grandpy.grandpy_thinks import GrandpyThinks
+from app.Grandpy.build_response import BuildResponse
 
 from . import app
 
@@ -18,7 +18,7 @@ def home():
 def thinking():
     user_text = request.form["user_text"]
 
-    obj = GrandpyThinks(user_text)
-    response_dict = obj.reflection()
-    print("\n\n\n", response_dict, "\n\n\n")
+    obj = BuildResponse(user_text)
+    response_dict = obj.get_response()
+
     return jsonify(response_dict)
