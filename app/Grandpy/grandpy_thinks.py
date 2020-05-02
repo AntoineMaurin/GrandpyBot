@@ -39,9 +39,17 @@ class GrandpyThinks:
 
         wiki_obj = WikimediaInteraction(list_ids)
 
-        self.response_dict['address'] = location_dict['address']
-        self.response_dict['lat'] = location_dict['lat']
-        self.response_dict['lng'] = location_dict['lng']
+        try:
+            self.response_dict['address'] = location_dict['address']
+            self.response_dict['lat'] = location_dict['lat']
+            self.response_dict['lng'] = location_dict['lng']
+
+        except(KeyError):
+            msg = ("Hmm il me semble que cela se trouve autour du" +
+                   location_dict['address'] + " mais ma mémoire me fait"
+                   "défaut, je ne peux pas te montrer l'emplacement exact..")
+            self.response_dict['grandpy_msg'] = msg
+            return self.response_dict
 
         # Si demande un lieu avec aucune page wiki alentour
         if len(wiki_obj.error_msg) > 0:
@@ -58,6 +66,7 @@ class GrandpyThinks:
 
         gmap = GmapsInteraction(parser_dict["keyword"])
         location_dict = gmap.get_content()
+        print(location_dict)
 
         # if "Comment vas tu papy ?"
         if 'special_text' in parser_dict.keys():

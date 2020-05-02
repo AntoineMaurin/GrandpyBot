@@ -21,6 +21,7 @@ class GmapsInteraction:
             results['lat'] = lat
             results['lng'] = lng
 
+            print(results)
             return results
 
         except(IndexError):

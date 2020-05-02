@@ -74,11 +74,11 @@ pre_keyword_words = ["ou est", "trouve-t-on", "ou trouver",
                      "l'adresse de", "l'adresse d'", "l'adresse du",
                      "l'emplacement de", "connaissez-vous", "me dire sur le",
                      "parle moi de", "a propos de", "a propos du",
-                     "a propos d'", "je cherche"]
+                     "a propos d'", "je cherche", "que sais tu sur"]
 
 politeness_words = ["s'il te plait", "s'il", "plait", "stp", "merci"]
 
+punctuation = [",", ".", "!", ";", "/", "(", "_", ")"]
+
 how_are_you = ["comment vas tu", "comment vas-tu",  "comment tu vas",
                "ca va", "tu vas bien"]
-
-punctuation = [",", ".", "!", ";", "/", "(", "_", ")"]
