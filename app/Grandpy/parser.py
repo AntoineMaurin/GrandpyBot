@@ -74,6 +74,3 @@ class Parser:
         text = text.split()
 
         return " ".join(text)
-
-# test = Parser("Salut papy ! Comment vas-tu ?! Sais-tu où se trouve Openclassrooms ?")
-# print(test.parse())

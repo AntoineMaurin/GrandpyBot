@@ -60,19 +60,17 @@ class BuildResponse:
 
     def build_classic_answer(self):
 
-        begin, article = self.get_begin_and_article()
+        begin, formula = self.get_begin_and_formula()
 
         msg = (begin + "Cela se trouve au " +
                self.loc_infos['address'] +
                ", d'ailleurs savais-tu que tout proche se " +
-               article + self.wiki_infos['title'] + " ? " +
+               formula + self.wiki_infos['title'] + " ? " +
                self.wiki_infos['text'])
-        print(msg)
         return msg
 
     def set_loc_infos(self, keyword):
         gmap = GmapsInteraction(keyword)
-
         self.loc_infos = gmap.get_content()
 
     def set_wiki_infos(self, lat, lng, address):
@@ -110,23 +108,23 @@ class BuildResponse:
 
             return True
 
-    def get_begin_and_article(self):
+    def get_begin_and_formula(self):
         if 'special_text' in self.parser_infos:
             begin = self.parser_infos['special_text']
         else:
             begin = "Bien sûr mon poussin ! "
 
-        article = ""
+        formula = ""
         title = self.wiki_infos['title'].split()[0].lower()
         if title in words.masculin:
-            article = "trouve le "
+            formula = "trouve le "
         elif title in words.feminin:
-            article = "trouve la "
+            formula = "trouve la "
         elif title in words.pluriel:
-            article = "trouvent les "
+            formula = "trouvent les "
         elif  title in words.apostrophe:
-            article = "trouve l'"
+            formula = "trouve l'"
         else:
-            article = "trouve "
+            formula = "trouve "
 
-        return begin, article
+        return begin, formula

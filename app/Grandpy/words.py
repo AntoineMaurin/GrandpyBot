@@ -24,9 +24,9 @@ stopwords = ["a","abord","absolument","afin","ah","ai","aie","ailleurs","ainsi",
 "entre","envers","environ","es","est","est-ce","et","etant","etc","etre","eu",
 "euh","eux","eux-mêmes","exactement","excepté","extenso","exterieur","f",
 "fais","faisaient","faisant","fait","façon","feront","fi","flac","floc","font",
-"g","gens","h","ha","hein","hem","hep","hi","ho","holà","hop","hormis","hors",
-"hou","houp","hue","hui","huit","huitième","hum","hurrah","hé","hélas","i",
-"il","ils","importe","j","je","jusqu","jusque","juste","k","l","laisser",
+"g","gens","h","ha","hasard","hein","hem","hep","hi","ho","holà","hop","hormis",
+"hors","hou","houp","hue","hui","huit","huitième","hum","hurrah","hé","hélas",
+"i","il","ils","importe","j","je","jusqu","jusque","juste","k","l","laisser",
 "laquelle","las","le","lequel","les","lesquelles","lesquels","leur","leurs",
 "longtemps","lors","lorsque","lui","lui-meme","lui-même","là","lès","m","ma",
 "maint","maintenant","mais","malgre","malgré","maximale","me","meme","memes",
@@ -81,7 +81,7 @@ politeness_words = ["s'il te plait", "s'il", "plait", "stp", "merci", "grandpy"]
 punctuation = [",", ".", "!", ";", "/", "(", "_", ")"]
 
 how_are_you = ["comment vas tu", "comment vas-tu",  "comment tu vas",
-               "ca va", "tu vas bien"]
+               "ca va", "tu vas bien", "la forme"]
 
 hello_words = ['salut', 'bonjour', 'bonsoir', 'coucou', 'hello', 'salutations',
                'yo']

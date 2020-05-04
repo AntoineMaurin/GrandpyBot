@@ -125,12 +125,10 @@ form #submit_button:hover {
   background-color: lightgreen;
 }
 
-}
 form #loading_circle {
   color: #333;
   display: none;
   margin: 15px 20px -15px 5px;
-
   border: 4px solid transparent;
   border-radius: 50%;
   border-top: 4px solid #333;

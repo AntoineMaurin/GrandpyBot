@@ -1,4 +1,4 @@
-from app.Parser.parser import Parser
+from app.Grandpy.parser import Parser
 from unittest.mock import Mock, patch
 
 import pytest
@@ -14,14 +14,15 @@ class TestParser:
             " soir ? Au fait, pendant que j'y pense, pourrais-tu m'indiquer"
             " où se trouve le musée d'art et d'histoire de Fribourd,"
             " s'il te plaît ?",
-            "Où trouve-t-on le Lac de vassivière au juste ?"]
+            "Salut Grandpy ! Comment vas-tu ? Dis moi, sais-tu où se trouve le"
+            " Lac de vassivière précisément ?"]
 
     RESPONSES = ["openclassrooms",
-                 "tour eiffel",
+                 "la tour eiffel",
                  "musee d'art d'histoire fribourd",
                  "lac vassiviere"]
 
-    def test_parser_text(self):
+    def test_parse(self):
         for i, j in enumerate(self.TEXT):
             obj = Parser(j)
             r = obj.parse()
@@ -39,6 +40,21 @@ class TestParser:
                      " grandma hier soir ? au fait pendant que j'y pense"
                      " pourrais-tu m'indiquer ou se trouve le musee d'art"
                      " et d'histoire de fribourd s'il te plait ?")
+
+    def test_look_for_special_text(self):
+        obj = Parser(self.TEXT[3])
+        test_text = obj.delete_accents_and_lower(self.TEXT[3])
+        test_result = obj.look_for_special_text(test_text)
+        assert obj.response['special_text'] == ("Salut la jeunesse ! Et bien "
+                                                "ma foi, je suis en pleine "
+                                                "forme aujourd'hui ! ")
+
+    def test_special_text_gets_removed(self):
+        obj = Parser(self.TEXT[3])
+        test_text = obj.delete_accents_and_lower(self.TEXT[3])
+        test_result = obj.look_for_special_text(test_text)
+        assert test_result == (" grandpy   ? dis moi sais-tu ou se trouve "
+                               "le lac de vassiviere precisement ?")
 
     def test_search_keyword_part(self):
         obj = Parser(self.TEXT[2])

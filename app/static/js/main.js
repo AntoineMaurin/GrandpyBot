@@ -20,6 +20,7 @@ function createMap(placement, lat, lng) {
 }
 
 function printMessages(user_msg, grandpy_msg){
+  document.getElementById("user_text").value="";
   document.getElementById("text-zone").appendChild(user_msg);
   document.getElementById("text-zone").appendChild(grandpy_msg);
 }
@@ -51,7 +52,7 @@ function printInfos(data) {
    }
    else {
      user_msg.innerText = data['user_text'];
-     grandpy_msg.innerHTML = data['grandpy_msg']
+     grandpy_msg.innerHTML = data['grandpy_msg'];
      createMap(map_msg, data['lat'], data['lng']);
      printMessages(user_msg, grandpy_msg);
      document.getElementById("text-zone").appendChild(map_msg);

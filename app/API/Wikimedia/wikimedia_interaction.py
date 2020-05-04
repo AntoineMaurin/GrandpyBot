@@ -34,7 +34,6 @@ class WikimediaInteraction:
             response_dict['text'] = self.clean_data(final_result)
             response_dict['title'] = title
             response_dict['url'] = "https://fr.wikipedia.org/wiki/" + title
-
             return response_dict
 
         except(KeyError):

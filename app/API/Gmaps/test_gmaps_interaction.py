@@ -51,7 +51,10 @@ class TestGmapsInteraction:
         obj = GmapsInteraction('Poudlard')
         response = obj.get_content()
         supposed_response = {}
-        supposed_response['error_msg'] = ("Je n'ai pas bien compris"
-                                          " ta question, veux-tu reformuler"
-                                          " s'il te plaît ?")
-        assert response == supposed_response
+        supposed_response['error_msg'] = ("Qu'est ce que tu dis ? " +
+                                          obj.search + " ? Je ne connais pas "
+                                          "ce lieu, ou peut-être ai-je mal "
+                                          "compris.. veux-tu reformuler s'il "
+                                          "te plaît ?")
+
+        assert response['error_msg'] == supposed_response['error_msg']

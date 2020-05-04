@@ -21,16 +21,14 @@ class GmapsInteraction:
             results['lat'] = lat
             results['lng'] = lng
 
-            print(results)
             return results
 
         except(IndexError):
-
-            msg = ("Qu'est ce que tu dis ? ", self.search, " ? Je ne connais"
+            msg = ("Qu'est ce que tu dis ? " + self.search + " ? Je ne connais"
                    " pas ce lieu, ou peut-être ai-je mal compris.. veux-tu"
                    " reformuler s'il te plaît ?")
-            results['error_msg'] = msg
+            results['error_msg'] = str(msg)
             return results
         else:
-            results['error_msg'] = ("J'en tombe de ma chaise !")
+            results['error_msg'] = "J'en tombe de ma chaise !"
             return results
