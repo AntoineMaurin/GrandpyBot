@@ -5,12 +5,15 @@ from app.API.Wikimedia.geosearch_interaction import GeoSearchInteraction
 from app.API.Wikimedia.wikimedia_interaction import WikimediaInteraction
 from app.Grandpy.parser import Parser
 
+"""This class builds the response that grandpy says depending on what the
+user asked."""
+
+
 class BuildResponse:
 
     def __init__(self, user_text):
         self.user_text = user_text
 
-        # has {'initial_text', 'hello_text', 'special_text', 'keyword'}
         self.parser_infos = {}
         self.loc_infos = {}
         self.wiki_infos = {}
@@ -18,11 +21,15 @@ class BuildResponse:
         self.final_dict = {}
         self.final_dict['user_text'] = user_text
 
-    # Returns dict {'user_text', 'grandpy_msg', 'special_text', 'url'}
+    """This simply returns the final dict when called"""
     def get_response(self):
         final_dict = self.build_final_dict()
         return final_dict
 
+    """This is the main method, it builds step by step the final dict
+    depending on what the parser returns, then it takes into account what
+    the google maps Places returns and adapt its response and content for
+    every possible case."""
     def build_final_dict(self):
 
         parser = Parser(self.user_text)
@@ -49,6 +56,7 @@ class BuildResponse:
             self.final_dict['grandpy_msg'] = grandpy_msg
             return self.final_dict
 
+    """This method builds the dict when all went well."""
     def build_succes_dict(self):
         self.final_dict['lat'] = self.loc_infos['lat']
         self.final_dict['lng'] = self.loc_infos['lng']
@@ -58,6 +66,9 @@ class BuildResponse:
         self.final_dict['text'] = self.wiki_infos['text']
         self.final_dict['title'] = self.wiki_infos['title']
 
+    """This one builds the 'classic answer', it means the typical message
+    returned when you ask a place to granpdy, and there is no problem in
+    the operations."""
     def build_classic_answer(self):
 
         begin, formula = self.get_begin_and_formula()
@@ -69,10 +80,15 @@ class BuildResponse:
                self.wiki_infos['text'])
         return msg
 
+    """This method is called when we need to set the location informations
+    about the place the parser just found out in the question."""
     def set_loc_infos(self, keyword):
         gmap = GmapsInteraction(keyword)
         self.loc_infos = gmap.get_content()
 
+    """This method is called when we have usable location informations about
+    a place, and now we need some wikipedia informations about this place and
+    the surronding area."""
     def set_wiki_infos(self, lat, lng, address):
         geo_search_obj = GeoSearchInteraction((lat, lng))
         list_ids = geo_search_obj.get_page_id()
@@ -81,8 +97,8 @@ class BuildResponse:
 
         if len(list_ids) == 0:
             if 'special_text' in self.parser_infos:
-                self.final_dict['grandpy_msg'] = (self.parser_infos['special_text'] +
-                                                  wiki_obj.error_msg)
+                res = (self.parser_infos['special_text'] + wiki_obj.error_msg)
+                self.final_dict['grandpy_msg'] = res
             else:
                 self.final_dict['grandpy_msg'] = wiki_obj.error_msg
 
@@ -93,21 +109,26 @@ class BuildResponse:
 
         self.wiki_infos = wiki_obj.get_content()
 
+    """This method checks if the question is empty, or just don't ask for a
+    place to search."""
     def is_empty(self, user_text):
-        empty_case_dict = {}
         if user_text.strip() == '':
 
             empty_question_msg = (" Si tu souhaites savoir"
                                   " l'emplacement de quelque chose,"
                                   " n'hésites pas à me demander !")
             if 'special_text' in self.parser_infos:
-                self.final_dict['special_text'] = (self.parser_infos['special_text']
-                                                   + empty_question_msg)
+                res = (self.parser_infos['special_text'] + empty_question_msg)
+                self.final_dict['special_text'] = res
+
             else:
                 self.final_dict['special_text'] = empty_question_msg
 
             return True
 
+    """This method is here to modify the answer depending of what is in the
+    question. If you are hello, how are you, where is this place, it's
+    gonna adapt the response here with hey, i'm fine, this is here."""
     def get_begin_and_formula(self):
         if 'special_text' in self.parser_infos:
             begin = self.parser_infos['special_text']
@@ -122,7 +143,7 @@ class BuildResponse:
             formula = "trouve la "
         elif title in words.pluriel:
             formula = "trouvent les "
-        elif  title in words.apostrophe:
+        elif title in words.apostrophe:
             formula = "trouve l'"
         else:
             formula = "trouve "

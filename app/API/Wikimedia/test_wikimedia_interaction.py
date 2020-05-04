@@ -1,12 +1,7 @@
-from unittest.mock import Mock, patch
-
-import requests
-import re
-import json
-import pytest
+from unittest.mock import patch
 
 from wikimedia_interaction import WikimediaInteraction
-from wikimedia_request import WikimediaRequest
+
 
 class TestWikimediaInteraction:
 
@@ -14,14 +9,14 @@ class TestWikimediaInteraction:
     WIKI_DICT = {"query": {
                     "pages": {
                         "5653202": {
-                        "pageid": 5653202,
-                        "ns": 0,
-                        "title": "Cité Paradis",
-                        "extract": "La cité Paradis est une voie publique "
+                            "pageid": 5653202,
+                            "ns": 0,
+                            "title": "Cité Paradis",
+                            "extract": "La cité Paradis est une voie publique "
                                     }
-                            }
-                        }
-                }
+                             }
+                          }
+                 }
 
     def test_search_attr(self):
         obj = WikimediaInteraction(self.IDS)
@@ -39,7 +34,6 @@ class TestWikimediaInteraction:
         obj = WikimediaInteraction(self.IDS)
         response = obj.get_content()
         assert response['text'] == "La cité Paradis est une voie publique... "
-
 
     @patch('app.API.Wikimedia.wikimedia_request.WikimediaRequest.request')
     def test_get_content_title(self, mock_dict):
@@ -71,16 +65,16 @@ class TestWikimediaInteraction:
                             " dansle 10e arrondissement de Paris. Situation"
                             " et accès La cité Paradis est une voie publique.")
 
-
     @patch('app.API.Wikimedia.wikimedia_request.WikimediaRequest.request')
     def test_key_error(self, mock_bad_key):
         bad_dict = {"unknown_key": {
                         "pages": {
                             "5653202": {
-                            "pageid": 5653202,
-                            "ns": 0,
-                            "title": "Cité Paradis",
-                            "extract": "La cité Paradis est une voie publique "
+                                "pageid": 5653202,
+                                "ns": 0,
+                                "title": "Cité Paradis",
+                                "extract": "La cité Paradis est une voie "
+                                           "publique "
                                         }
                                 }
                             }

@@ -1,8 +1,14 @@
 import requests
 import json
 
+"""This class sends a request to the media wiki API with a precise id page
+to look for, and returns the json into a dict."""
+
+
 class WikimediaRequest:
 
+    """This method builds the url to request the properly the API and
+    returns the json into a dict."""
     def request(search_id):
         try:
             url = str("https://fr.wikipedia.org/w/api.php?action=query&"

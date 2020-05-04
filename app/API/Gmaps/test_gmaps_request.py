@@ -1,19 +1,16 @@
 from gmaps_request import GmapsRequest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
-import pytest, json
-
-from gmaps_request import GmapsRequest
 
 class TestGmapsRequest:
 
     TEXT = "OpenClassrooms"
-    DATA = {"results" : [{
-                    "formatted_address" : "7 Cité Paradis, 75010 Paris, France",
-                    "geometry" : {
-                          "location" : {
-                          "lat" : 48.8748465,
-                          "lng" : 2.3504873
+    DATA = {"results": [{
+                    "formatted_address": "7 Cité Paradis, 75010 Paris, France",
+                    "geometry": {
+                      "location": {
+                          "lat": 48.8748465,
+                          "lng": 2.3504873
                                         }
                                 }
                     }]}

@@ -1,8 +1,6 @@
 from app.API.Wikimedia.geosearch_request import GeoSearchRequest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
-import pytest
-import json
 
 class TestGeoSearchRequest:
 
@@ -11,7 +9,7 @@ class TestGeoSearchRequest:
             "batchcomplete": "",
             "query": {
                 "geosearch": [
-                        {
+                    {
                         "pageid": 5653202,
                         "ns": 0,
                         "title": "Cité Paradis",
@@ -19,8 +17,8 @@ class TestGeoSearchRequest:
                         "lon": 2.35064,
                         "dist": 84.9,
                         "primary": ""
-                        },
-                        {
+                    },
+                    {
                         "pageid": 6035646,
                         "ns": 0,
                         "title": "Hôtel Botterel de Quintin",
@@ -28,7 +26,7 @@ class TestGeoSearchRequest:
                         "lon": 2.34989,
                         "dist": 84.1,
                         "primary": ""
-                        }
+                    }
                     ]
                 }
             }

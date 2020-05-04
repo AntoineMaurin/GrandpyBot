@@ -1,12 +1,7 @@
-from unittest.mock import Mock, patch
-
-import requests
-import re
-import json
-import pytest
+from unittest.mock import patch
 
 from geosearch_interaction import GeoSearchInteraction
-from geosearch_request import GeoSearchRequest
+
 
 class TestGeoSearchInteraction:
 
@@ -15,7 +10,7 @@ class TestGeoSearchInteraction:
             "batchcomplete": "",
             "query": {
                 "geosearch": [
-                        {
+                    {
                         "pageid": 5653202,
                         "ns": 0,
                         "title": "Cité Paradis",
@@ -23,8 +18,8 @@ class TestGeoSearchInteraction:
                         "lon": 2.35064,
                         "dist": 84.9,
                         "primary": ""
-                        },
-                        {
+                    },
+                    {
                         "pageid": 6035646,
                         "ns": 0,
                         "title": "Hôtel Botterel de Quintin",
@@ -32,7 +27,7 @@ class TestGeoSearchInteraction:
                         "lon": 2.34989,
                         "dist": 84.1,
                         "primary": ""
-                        }
+                    }
                     ]
                 }
             }
@@ -55,7 +50,7 @@ class TestGeoSearchInteraction:
         assert response == [5653202, 6035646]
 
     @patch('app.API.Wikimedia.geosearch_request.GeoSearchRequest.request')
-    def test_get_content_text(self, mock_dict):
+    def test_page_ids(self, mock_dict):
 
         mock_dict.return_value = self.DATA
 
@@ -66,17 +61,17 @@ class TestGeoSearchInteraction:
             pageids.append(dict['pageid'])
         assert response == pageids
 
-
     @patch('app.API.Wikimedia.geosearch_request.GeoSearchRequest.request')
     def test_key_error(self, mock_bad_key):
         bad_dict = {"unknown_key": {
                         "pages": {
                             "5653202": {
-                            "pageid": 5653202,
-                            "ns": 0,
-                            "title": "Cité Paradis",
-                            "extract": "La cité Paradis est une voie publique "
-                                        }
+                                "pageid": 5653202,
+                                "ns": 0,
+                                "title": "Cité Paradis",
+                                "extract": "La cité Paradis est une voie "
+                                           "publique "
+                                            }
                                 }
                             }
                     }

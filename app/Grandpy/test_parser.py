@@ -1,7 +1,5 @@
 from app.Grandpy.parser import Parser
-from unittest.mock import Mock, patch
 
-import pytest
 
 class TestParser:
 
@@ -44,7 +42,7 @@ class TestParser:
     def test_look_for_special_text(self):
         obj = Parser(self.TEXT[3])
         test_text = obj.delete_accents_and_lower(self.TEXT[3])
-        test_result = obj.look_for_special_text(test_text)
+        obj.look_for_special_text(test_text)
         assert obj.response['special_text'] == ("Salut la jeunesse ! Et bien "
                                                 "ma foi, je suis en pleine "
                                                 "forme aujourd'hui ! ")

@@ -1,8 +1,6 @@
 from app.API.Wikimedia.wikimedia_request import WikimediaRequest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
-import pytest
-import json
 
 class TestWikimediaRequest:
 
