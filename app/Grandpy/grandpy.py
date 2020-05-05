@@ -80,7 +80,9 @@ class Grandpy:
         return msg
 
     """This method is called when we need to set the location informations
-    about the place the parser just found out in the question."""
+    about the place the parser just found out in the question. Returns False
+    before and the error message if something went wrong. Otherwise it returns
+    True and the dictionnary."""
     def get_loc_infos(self, keyword):
         gmap = GmapsInteraction(keyword)
         loc_infos = gmap.get_content()
@@ -92,7 +94,8 @@ class Grandpy:
 
     """This method is called when we have usable location informations about
     a place, and now we need some wikipedia informations about this place and
-    the surronding area."""
+    the surronding area. Returns False if there is no wikipedia page near the
+    given locaction."""
     def get_wiki_infos(self, parser_dict, lat, lng):
         geo_search_obj = GeoSearchInteraction((lat, lng))
         list_ids = geo_search_obj.get_page_id()

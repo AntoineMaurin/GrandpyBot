@@ -3,7 +3,16 @@ from app.Grandpy.parser import Parser
 
 class TestParser:
 
-    TEXT = ["Salut GrandPy ! Est-ce que tu connais l'adresse"
+    TEXT = ["Hello",
+            "Comment vas-tu ?",
+            "Bonsoir, tu vas bien ?",
+            "Salut, tu sais où est l'arc de triomphe ?",
+            "Coucou, tu vas bien ? tu sais où est l'arc de triomphe au fait ?",
+            "Où est le Groenland ?",
+            "Salut, tu vas bien ? où est Groenland exactement ?",
+            "Tu sais où se trouve poudlard ?",
+            "Salut, tu saurais où est poudlard par hasard ?",
+            "Salut GrandPy ! Est-ce que tu connais l'adresse"
             " d'OpenClassrooms ?",
             "Bonsoir Grandpy, j'espère que tu as passé une belle semaine."
             " Est-ce que tu pourrais m'indiquer l'adresse de la tour eiffel ?"
@@ -12,57 +21,52 @@ class TestParser:
             " soir ? Au fait, pendant que j'y pense, pourrais-tu m'indiquer"
             " où se trouve le musée d'art et d'histoire de Fribourd,"
             " s'il te plaît ?",
-            "Salut Grandpy ! Comment vas-tu ? Dis moi, sais-tu où se trouve le"
-            " Lac de vassivière précisément ?"]
+            "Bonsoir Grandpy ! Comment vas-tu ? Dis moi, sais-tu où se trouve "
+            "le Lac de vassivière précisément ?"]
 
-    RESPONSES = ["openclassrooms",
-                 "la tour eiffel",
-                 "musee d'art d'histoire fribourd",
-                 "lac vassiviere"]
+    KEYWORDS = ["",
+                "",
+                "",
+                "l'arc triomphe",
+                "l'arc triomphe",
+                "groenland",
+                "groenland",
+                "poudlard",
+                "poudlard",
+                "openclassrooms",
+                "la tour eiffel",
+                "musee d'art d'histoire fribourd",
+                "lac vassiviere"]
+
+    SPECIAL_TEXT = ["Hello la jeunesse ! ",
+                    "Et bien ma foi, je suis en pleine forme aujourd'hui ! ",
+                    "Bonsoir la jeunesse ! Et bien ma foi, je suis en pleine "
+                    "forme aujourd'hui ! ",
+                    "Salut la jeunesse ! ",
+                    "Coucou la jeunesse ! Et bien ma foi, je suis en pleine "
+                    "forme aujourd'hui ! ",
+                    "Salut la jeunesse ! Et bien ma foi, je suis en pleine "
+                    "forme aujourd'hui ! ",
+                    "Salut la jeunesse ! Et bien ma foi, je suis en pleine "
+                    "forme aujourd'hui ! ",
+                    "Salut la jeunesse ! ",
+                    "Salut la jeunesse ! ",
+                    "Salut la jeunesse ! ",
+                    "Bonsoir la jeunesse ! ",
+                    "Salut la jeunesse ! ",
+                    "Bonsoir la jeunesse ! Et bien ma foi, je suis en pleine "
+                    "forme aujourd'hui ! "
+                    ]
 
     def test_parse(self):
         for i, j in enumerate(self.TEXT):
             obj = Parser(j)
-            r = obj.parse()
-            assert r['keyword'] == self.RESPONSES[i]
+            response = obj.parse()
+            assert response['keyword'] == self.KEYWORDS[i]
 
-    def test_return_type(self):
-        obj = Parser(self.TEXT[0])
-        r = obj.parse()
-        assert isinstance(r, dict)
-
-    def test_delete_accents_and_lower(self):
-        obj = Parser(self.TEXT[2])
-        r = obj.delete_accents_and_lower(self.TEXT[2])
-        assert r == ("salut grandpy  comment s'est passe ta soiree avec"
-                     " grandma hier soir ? au fait pendant que j'y pense"
-                     " pourrais-tu m'indiquer ou se trouve le musee d'art"
-                     " et d'histoire de fribourd s'il te plait ?")
-
-    def test_look_for_special_text(self):
-        obj = Parser(self.TEXT[3])
-        test_text = obj.delete_accents_and_lower(self.TEXT[3])
-        obj.look_for_special_text(test_text)
-        assert obj.response['special_text'] == ("Salut la jeunesse ! Et bien "
-                                                "ma foi, je suis en pleine "
-                                                "forme aujourd'hui ! ")
-
-    def test_special_text_gets_removed(self):
-        obj = Parser(self.TEXT[3])
-        test_text = obj.delete_accents_and_lower(self.TEXT[3])
-        test_result = obj.look_for_special_text(test_text)
-        assert test_result == (" grandpy   ? dis moi sais-tu ou se trouve "
-                               "le lac de vassiviere precisement ?")
-
-    def test_search_keyword_part(self):
-        obj = Parser(self.TEXT[2])
-        test_pure_text = obj.delete_accents_and_lower(self.TEXT[2])
-        r = obj.search_keyword_part(test_pure_text)
-        assert r == " le musee d'art et d'histoire de fribourd s'il te plait "
-
-    def test_remove_remaining_words(self):
-        obj = Parser(self.TEXT[2])
-        test_pure_text = obj.delete_accents_and_lower(self.TEXT[2])
-        reduced_part = obj.search_keyword_part(test_pure_text)
-        r = obj.remove_remaining_words(reduced_part)
-        assert r == "musee d'art d'histoire fribourd"
+    def test_special_text(self):
+        for i, j in enumerate(self.TEXT):
+            obj = Parser(j)
+            response = obj.parse()
+            if 'special_text' in response.keys():
+                assert response['special_text'] == self.SPECIAL_TEXT[i]
