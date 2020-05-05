@@ -10,13 +10,8 @@ WikimediaRequest class."""
 class WikimediaInteraction:
 
     def __init__(self, pageids):
-        self.error_msg = ""
-        try:
-            page_id = random.choice(pageids)
-            self.search_id = page_id
-        except(IndexError):
-            self.error_msg = ("Cela se trouve ici, mais je suis désolé, je ne"
-                              " connais pas grand chose sur cet endroit..")
+        page_id = random.choice(pageids)
+        self.search_id = page_id
 
     """This method cleans the text in parameter to return it without '=' symbol
     and other undesirable characters that can appear in the result."""

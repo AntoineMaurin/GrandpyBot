@@ -1,10 +1,10 @@
-from app.Grandpy.build_response import BuildResponse
+from app.Grandpy.grandpy import Grandpy
 from unittest.mock import patch
 
 from app.Grandpy import words
 
 
-class TestBuildResponse:
+class TestGrandpy:
 
     TEXT = ["",
             "        ",
@@ -19,12 +19,12 @@ class TestBuildResponse:
             ]
 
     def test_user_text(self):
-        obj = BuildResponse(self.TEXT[3])
+        obj = Grandpy(self.TEXT[3])
         obj.get_response()
         assert obj.final_dict['user_text'] == self.TEXT[3]
 
     def test_response_is_dict(self):
-        obj = BuildResponse(self.TEXT[0])
+        obj = Grandpy(self.TEXT[3])
         assert isinstance(obj.get_response(), dict)
 
     def test_empty_question_msg(self):
@@ -33,15 +33,15 @@ class TestBuildResponse:
                               " n'hésites pas à me demander !")
 
         for i, j in enumerate(self.TEXT[:2]):
-            obj = BuildResponse(self.TEXT[i])
+            obj = Grandpy(self.TEXT[i])
             assert obj.get_response()['special_text'] == empty_question_msg
 
     def test_hello_in_question(self):
-        obj = BuildResponse(self.TEXT[3])
+        obj = Grandpy(self.TEXT[3])
         assert 'Bonjour' in obj.get_response()['special_text']
 
     def test_how_are_you_in_question(self):
-        obj = BuildResponse(self.TEXT[3])
+        obj = Grandpy(self.TEXT[3])
         imfine = "Et bien ma foi, je suis en pleine forme aujourd'hui ! "
         assert imfine in obj.get_response()['special_text']
 
@@ -71,7 +71,7 @@ class TestBuildResponse:
         mock_wiki.return_value = wiki_resp
 
         for i, j in enumerate(self.TEXT):
-            obj = BuildResponse(self.TEXT[i])
+            obj = Grandpy(self.TEXT[i])
             test_dict = obj.get_response()
             for w in words.hello_words:
                 if w in test_dict['user_text'].lower():
@@ -96,7 +96,7 @@ class TestBuildResponse:
         mock_geos.return_value = geosearch_response
 
         for i, j in enumerate(self.TEXT):
-            obj = BuildResponse(self.TEXT[i])
+            obj = Grandpy(self.TEXT[i])
             test_dict = obj.get_response()
             for w in words.hello_words:
                 if w in test_dict['user_text'].lower():
@@ -135,7 +135,7 @@ class TestBuildResponse:
         sentence = "Et bien ma foi, je suis en pleine forme aujourd'hui ! "
 
         for i, j in enumerate(self.TEXT):
-            obj = BuildResponse(self.TEXT[i])
+            obj = Grandpy(self.TEXT[i])
             test_dict = obj.get_response()
             for w in words.how_are_you:
                 if w in test_dict['user_text'].lower():
@@ -160,7 +160,7 @@ class TestBuildResponse:
         sentence = "Et bien ma foi, je suis en pleine forme aujourd'hui ! "
 
         for i, j in enumerate(self.TEXT):
-            obj = BuildResponse(self.TEXT[i])
+            obj = Grandpy(self.TEXT[i])
             test_dict = obj.get_response()
             for w in words.how_are_you:
                 if w in test_dict['user_text'].lower():
@@ -203,7 +203,7 @@ class TestBuildResponse:
                         " arrondissement de Paris. Elle débute au 82, rue "
                         "d'Hauteville et se termine au 51...")
 
-        obj = BuildResponse(self.TEXT[4])
+        obj = Grandpy(self.TEXT[4])
         test_dict = obj.get_response()
         assert test_dict['grandpy_msg'] == expected_msg
 
@@ -223,7 +223,7 @@ class TestBuildResponse:
                         " je suis désolé, je ne connais pas grand chose sur"
                         " cet endroit..")
 
-        obj = BuildResponse(self.TEXT[4])
+        obj = Grandpy(self.TEXT[4])
         test_dict = obj.get_response()
         assert test_dict['grandpy_msg'] == expected_msg
 
@@ -239,7 +239,7 @@ class TestBuildResponse:
         mock_gmap.return_value = gmap_response
         mock_geos.return_value = geosearch_response
 
-        obj = BuildResponse(self.TEXT[4])
+        obj = Grandpy(self.TEXT[4])
         test_dict = obj.get_response()
         assert test_dict['lat'] == 48.8748465 and test_dict['lng'] == 2.3504873
 
@@ -268,7 +268,7 @@ class TestBuildResponse:
         mock_geos.return_value = geosearch_response
         mock_wiki.return_value = wiki_resp
 
-        obj = BuildResponse(self.TEXT[4])
+        obj = Grandpy(self.TEXT[4])
         test_dict = obj.get_response()
         assert test_dict['url'] == ("https://fr.wikipedia.org/wiki/"
                                     "Cit%C3%A9_d%27Hauteville")
@@ -298,7 +298,7 @@ class TestBuildResponse:
         mock_geos.return_value = geosearch_response
         mock_wiki.return_value = wiki_resp
 
-        obj = BuildResponse(self.TEXT[4])
+        obj = Grandpy(self.TEXT[4])
         test_dict = obj.get_response()
         assert test_dict['lat'] == 48.8748465 and test_dict['lng'] == 2.3504873
 
@@ -308,6 +308,6 @@ class TestBuildResponse:
                         "peut-être ai-je mal compris.. veux-tu "
                         "reformuler s'il te plaît ?")
 
-        obj = BuildResponse(self.TEXT[7])
+        obj = Grandpy(self.TEXT[7])
         test_dict = obj.get_response()
         assert test_dict['special_text'] == expected_msg

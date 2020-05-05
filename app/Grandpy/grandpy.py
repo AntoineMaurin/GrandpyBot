@@ -9,15 +9,9 @@ from app.Grandpy.parser import Parser
 user asked."""
 
 
-class BuildResponse:
+class Grandpy:
 
     def __init__(self, user_text):
-        self.user_text = user_text
-
-        self.parser_infos = {}
-        self.loc_infos = {}
-        self.wiki_infos = {}
-
         self.final_dict = {}
         self.final_dict['user_text'] = user_text
 
@@ -32,93 +26,101 @@ class BuildResponse:
     every possible case."""
     def build_final_dict(self):
 
-        parser = Parser(self.user_text)
-        self.parser_infos = parser.parse()
+        parser = Parser(self.final_dict['user_text'])
+        parser_dict = parser.parse()
 
-        if self.is_empty(self.parser_infos['keyword']):
+        if self.is_empty(parser_dict):
             return self.final_dict
 
-        self.set_loc_infos(self.parser_infos['keyword'])
+        success, loc_result = self.get_loc_infos(parser_dict['keyword'])
 
-        if 'error_msg' in self.loc_infos:
-            self.final_dict['special_text'] = self.loc_infos['error_msg']
+        if success is False:
+            self.final_dict['special_text'] = loc_result
             return self.final_dict
 
-        end = self.set_wiki_infos(self.loc_infos['lat'],
-                                  self.loc_infos['lng'],
-                                  self.loc_infos['address'])
-        if end is not None:
+        success, wiki_result = self.get_wiki_infos(parser_dict,
+                                                   loc_result['lat'],
+                                                   loc_result['lng'])
+        if success is False:
+            self.final_dict['lat'] = loc_result['lat']
+            self.final_dict['lng'] = loc_result['lng']
+            self.final_dict['grandpy_msg'] = wiki_result
             return self.final_dict
         else:
-            self.build_succes_dict()
-            grandpy_msg = self.build_classic_answer()
-
-            self.final_dict['grandpy_msg'] = grandpy_msg
-            return self.final_dict
+            return self.build_succes_dict(wiki_result, loc_result, parser_dict)
 
     """This method builds the dict when all went well."""
-    def build_succes_dict(self):
-        self.final_dict['lat'] = self.loc_infos['lat']
-        self.final_dict['lng'] = self.loc_infos['lng']
-        self.final_dict['address'] = self.loc_infos['address']
+    def build_succes_dict(self, wiki_dict, loc_infos, parser_dict):
+        self.final_dict['lat'] = loc_infos['lat']
+        self.final_dict['lng'] = loc_infos['lng']
+        self.final_dict['address'] = loc_infos['address']
 
-        self.final_dict['url'] = self.wiki_infos['url']
-        self.final_dict['text'] = self.wiki_infos['text']
-        self.final_dict['title'] = self.wiki_infos['title']
+        self.final_dict['url'] = wiki_dict['url']
+        self.final_dict['text'] = wiki_dict['text']
+        self.final_dict['title'] = wiki_dict['title']
+
+        self.final_dict['grandpy_msg'] = self.build_classic_answer(wiki_dict,
+                                                                   loc_infos,
+                                                                   parser_dict)
+
+        return self.final_dict
 
     """This one builds the 'classic answer', it means the typical message
     returned when you ask a place to granpdy, and there is no problem in
     the operations."""
-    def build_classic_answer(self):
+    def build_classic_answer(self, wiki_dict, loc_infos, parser_dict):
 
-        begin, formula = self.get_begin_and_formula()
+        begin, formula = self.get_begin_and_formula(wiki_dict, parser_dict)
 
         msg = (begin + "Cela se trouve au " +
-               self.loc_infos['address'] +
+               loc_infos['address'] +
                ", d'ailleurs savais-tu que tout proche se " +
-               formula + self.wiki_infos['title'] + " ? " +
-               self.wiki_infos['text'])
+               formula + wiki_dict['title'] + " ? " +
+               wiki_dict['text'])
         return msg
 
     """This method is called when we need to set the location informations
     about the place the parser just found out in the question."""
-    def set_loc_infos(self, keyword):
+    def get_loc_infos(self, keyword):
         gmap = GmapsInteraction(keyword)
-        self.loc_infos = gmap.get_content()
+        loc_infos = gmap.get_content()
+
+        if 'error_msg' in loc_infos.keys():
+            return False, loc_infos['error_msg']
+        else:
+            return True, loc_infos
 
     """This method is called when we have usable location informations about
     a place, and now we need some wikipedia informations about this place and
     the surronding area."""
-    def set_wiki_infos(self, lat, lng, address):
+    def get_wiki_infos(self, parser_dict, lat, lng):
         geo_search_obj = GeoSearchInteraction((lat, lng))
         list_ids = geo_search_obj.get_page_id()
 
-        wiki_obj = WikimediaInteraction(list_ids)
-
         if len(list_ids) == 0:
-            if 'special_text' in self.parser_infos:
-                res = (self.parser_infos['special_text'] + wiki_obj.error_msg)
-                self.final_dict['grandpy_msg'] = res
+            no_page_msg = ("Cela se trouve ici, mais je suis désolé, je ne"
+                           " connais pas grand chose sur cet endroit..")
+            if 'special_text' in parser_dict:
+                res = (parser_dict['special_text'] + no_page_msg)
+                return False, res
             else:
-                self.final_dict['grandpy_msg'] = wiki_obj.error_msg
+                return False, no_page_msg
+        else:
+            wiki_obj = WikimediaInteraction(list_ids)
+            wiki_dict = wiki_obj.get_content()
 
-            self.final_dict['lat'] = lat
-            self.final_dict['lng'] = lng
-            self.final_dict['address'] = address
-            return self.final_dict
-
-        self.wiki_infos = wiki_obj.get_content()
+            return True, wiki_dict
 
     """This method checks if the question is empty, or just don't ask for a
     place to search."""
-    def is_empty(self, user_text):
-        if user_text.strip() == '':
+    def is_empty(self, parser_dict):
+        if parser_dict['keyword'].strip() == '':
 
             empty_question_msg = (" Si tu souhaites savoir"
                                   " l'emplacement de quelque chose,"
                                   " n'hésites pas à me demander !")
-            if 'special_text' in self.parser_infos:
-                res = (self.parser_infos['special_text'] + empty_question_msg)
+            if 'special_text' in parser_dict:
+                res = (parser_dict['special_text'] + empty_question_msg)
                 self.final_dict['special_text'] = res
 
             else:
@@ -129,14 +131,14 @@ class BuildResponse:
     """This method is here to modify the answer depending of what is in the
     question. If you are hello, how are you, where is this place, it's
     gonna adapt the response here with hey, i'm fine, this is here."""
-    def get_begin_and_formula(self):
-        if 'special_text' in self.parser_infos:
-            begin = self.parser_infos['special_text']
+    def get_begin_and_formula(self, wiki_dict, parser_dict):
+        if 'special_text' in parser_dict:
+            begin = parser_dict['special_text']
         else:
             begin = "Bien sûr mon poussin ! "
 
         formula = ""
-        title = self.wiki_infos['title'].split()[0].lower()
+        title = wiki_dict['title'].split()[0].lower()
         if title in words.masculin:
             formula = "trouve le "
         elif title in words.feminin:

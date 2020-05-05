@@ -9,7 +9,7 @@ class TestWikimediaRequest:
 
     @patch('app.API.Wikimedia.wikimedia_request.requests.get')
     def setup_function(self, mock_text):
-        mock_text.return_value.text = self.DATA
+        mock_text.return_value = self.DATA
 
     def test_dict_tranform(self):
         r = WikimediaRequest.request(self.TEXT)

@@ -22,7 +22,6 @@ class GmapsRequest:
 
             response = requests.get(url, headers={'Content-Type':
                                                   'text/html; charset=utf-8'})
-
             assert response.status_code < 300
 
             dict_response = json.loads(response.text)
