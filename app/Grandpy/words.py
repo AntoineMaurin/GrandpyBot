@@ -1,4 +1,4 @@
-stopwords = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs",
+stopwords = ["abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs",
              "ainsi", "ait", "allaient", "allo", "allons", "allô", "alors",
              "anterieur", "anterieure", "anterieures", "apres", "après", "as",
              "assez", "attendu", "au", "aucun", "aucune", "aujourd'hui",
@@ -97,7 +97,8 @@ pre_keyword_words = ["ou est", "trouve-t-on", "ou trouver",
                      "l'adresse de", "l'adresse d'", "l'adresse du",
                      "l'emplacement de", "connaissez-vous", "me dire sur le",
                      "parle moi de", "a propos de", "a propos du",
-                     "a propos d'", "je cherche", "que sais tu sur"]
+                     "a propos d'", "je cherche", "que sais tu sur",
+                     "voudrais aller a"]
 
 politeness_words = ["s'il te plait", "s'il", "plait", "stp", "merci",
                     "grandpy"]
