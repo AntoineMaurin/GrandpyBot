@@ -85,7 +85,6 @@ class Parser:
         text_list = text.split()
         for word in words.stopwords:
             if word in text_list:
-                text = text.replace(word, '')
-        text = text.split()
+                text_list.remove(word)
 
-        return " ".join(text)
+        return " ".join(text_list)

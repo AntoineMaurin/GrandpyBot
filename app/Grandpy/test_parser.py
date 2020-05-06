@@ -22,7 +22,8 @@ class TestParser:
             " où se trouve le musée d'art et d'histoire de Fribourd,"
             " s'il te plaît ?",
             "Bonsoir Grandpy ! Comment vas-tu ? Dis moi, sais-tu où se trouve "
-            "le Lac de vassivière précisément ?"]
+            "le Lac de vassivière précisément ?",
+            "Je voudrais aller à la tour eiffel"]
 
     KEYWORDS = ["",
                 "",
@@ -36,7 +37,8 @@ class TestParser:
                 "openclassrooms",
                 "la tour eiffel",
                 "musee d'art d'histoire fribourd",
-                "lac vassiviere"]
+                "lac vassiviere",
+                "la tour eiffel"]
 
     SPECIAL_TEXT = ["Hello la jeunesse ! ",
                     "Et bien ma foi, je suis en pleine forme aujourd'hui ! ",

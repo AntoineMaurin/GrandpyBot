@@ -1,4 +1,4 @@
-stopwords = ["abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs",
+stopwords = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs",
              "ainsi", "ait", "allaient", "allo", "allons", "allô", "alors",
              "anterieur", "anterieure", "anterieures", "apres", "après", "as",
              "assez", "attendu", "au", "aucun", "aucune", "aujourd'hui",
