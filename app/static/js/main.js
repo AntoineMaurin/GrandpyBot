@@ -64,7 +64,7 @@ form.addEventListener("submit", function (event){
   document.getElementById('loading_circle').style.display = 'inline-block';
   event.preventDefault();
 
-  postFormData("/thinking", new FormData(form))
+  postFormData("/answer", new FormData(form))
   .then(response => {
     printInfos(response);
   })
